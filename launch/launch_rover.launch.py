@@ -51,7 +51,7 @@ def generate_launch_description():
     delayed_diff_drive_spwaner = RegisterEventHandler(
         event_handler=OnProcessStart(
             target_action=controller_manager,
-            on_exit=[diff_drive_spawner]
+            on_start=[diff_drive_spawner]
         )
     )
 
