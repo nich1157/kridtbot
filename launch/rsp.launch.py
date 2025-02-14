@@ -24,6 +24,7 @@ def generate_launch_description():
     
     # robot_state_publisher node on topic "robot_description"
     params = {'robot_description': robot_description_config, 'use_sim_time': use_sim_time}
+    
     node_robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
