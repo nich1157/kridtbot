@@ -39,7 +39,7 @@ def generate_launch_description():
         parameters=[{'robot_description':robot_description},
                     controller_params],
     )
-    delayed_controller_manager = TimerAction(period=0.3,actions=[controller_manager])
+    delayed_controller_manager = TimerAction(period=1.0,actions=[controller_manager])
     
     # configure, inactive and activate controllers - diff_drive and joint broadcaster
     diff_drive_spawner = Node(
