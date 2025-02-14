@@ -9,7 +9,7 @@
             <right_joint>right_rear_wheel</right_joint>
 
             <!-- [m] from SW -->
-            <wheel_seperation>0.068185</wheel_seperation>
+            <wheel_separation>0.068185</wheel_separation>
 
             <!-- [m] from urdf -->
             <wheel_radius>0.0815</wheel_radius>

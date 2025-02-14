@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 100
+    update_rate: 30
     # use_sim_time: true
 
     diff_cont:
@@ -11,12 +11,17 @@ controller_manager:
 
 diff_cont:
   ros__parameters:
-    left_wheel_names: ["left_front_wheel"]
-    right_wheel_names: ["right_front_wheel"]
+    left_wheel_names: ["left_front_wheel", "left_rear_wheel"]
+    right_wheel_names: ["right_front_wheel", "right_rear_wheel"]
 
-    wheel_separation: 0.40
-    wheel_radius: 0.02
+    wheel_separation: 0.068185
+    wheel_radius: 0.0815
 
-joint_broad:
-  ros__parameters:
-    publish_rate: 100
+    publish_rate: 50.0
+    #use_samped_vel: false
+
+
+
+#joint_broad:
+  #ros__parameters:
+    #publish_rate: 100

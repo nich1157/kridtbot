@@ -31,13 +31,13 @@ def generate_launch_description():
         parameters=[params]
     )
 
-    #params = {'robot_description': robot_description_config}
-    #node_joint_state_publisher_gui = Node(
-    #    package='joint_state_publisher_gui',
-    #    executable='joint_state_publisher_gui',
-    #    output='screen',
-    #    parameters=[params]
-    #)
+    params = {'robot_description': robot_description_config}
+    node_joint_state_publisher_gui = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        output='screen',
+        parameters=[params]
+    )
 
 
     # Launch!
@@ -46,7 +46,11 @@ def generate_launch_description():
             'use_sim_time',
             default_value='false',
             description='Use sim time if true'),
+        DeclareLaunchArgument(
+            'use_ros2_control',
+            default_value='false',
+            description='uses ros2_control if true'),
 
         node_robot_state_publisher,
-        #node_joint_state_publisher_gui
+        node_joint_state_publisher_gui
     ])

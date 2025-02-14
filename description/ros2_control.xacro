@@ -22,6 +22,19 @@
             <state_interface name="position"></state_interface>
         </joint>
 
+        <joint name="left_rear_wheel">
+            <command_interface name="velocity"/>
+            <state_interface name="velocity"></state_interface>
+            <state_interface name="position"></state_interface>
+        </joint>
+
+        <joint name="right_rear_wheel">
+            <command_interface name="velocity"/>
+            <state_interface name="velocity"></state_interface>
+            <state_interface name="position"></state_interface>
+        </joint>
+
+
     </ros2_control>
 
         <!-- GZ plugin -->

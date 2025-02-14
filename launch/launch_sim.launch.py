@@ -23,7 +23,7 @@ def generate_launch_description():
     rsp = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory(package_name),'launch','rsp.launch.py'
-                )]), launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'true'}.items()
+                )]), launch_arguments={'use_sim_time': 'true', 'use_ros2_control': 'false'}.items()
     )
 
     #### Launch 2: Launch Gazebo and run
@@ -43,6 +43,7 @@ def generate_launch_description():
         )
     
     # Include the Gazebo launch file, provided by the ros_gz_sim package
+    params = os.path.join(get_package_share_directory(package_name), 'config', 'gz_params.yaml')
     gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')]),
@@ -57,6 +58,7 @@ def generate_launch_description():
                         output='screen')
     
 
+    # configure, inactive and activate controllers - diff_drive and joint broadcaster
     diff_drive_spawner = Node(
         package="controller_manager",
         executable="spawner",
@@ -70,7 +72,7 @@ def generate_launch_description():
     )
 
 
-    
+    # tell Gz about bridge between gz and ros2 topics
     bridge_params = os.path.join(get_package_share_directory(package_name),'config','gz_bridge.yaml')
     ros_gz_bridge = Node(
         package="ros_gz_bridge",
@@ -82,6 +84,15 @@ def generate_launch_description():
         ]
     )
 
+    # ros2 jazzy update. no use of unstamped 
+    twist_stamper = Node(
+        package='twist_stamper',
+        executable='twist_stamper',
+        parameters=[{'use_sim_time': True}],
+        remappings=[('/cmd_vel_in', 'diff_cont/cmd_vel_unstamped'),
+                    ('/cmd_vel_out','/diff_cont/cmd_vel')]
+    )
+
 
     # Launch all
     return LaunchDescription([
@@ -89,8 +100,9 @@ def generate_launch_description():
         world_arg,
         gazebo,
         spawn_entity,
-        #diff_drive_spawner,
-        #joint_broad_spawner,
+        twist_stamper,
+        diff_drive_spawner,
+        joint_broad_spawner,
         ros_gz_bridge
         #diff_drive_spawner,
         #joint_broad_spawner
