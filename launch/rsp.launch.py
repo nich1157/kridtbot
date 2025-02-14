@@ -51,7 +51,6 @@ def generate_launch_description():
             'use_ros2_control',
             default_value='true',
             description='uses ros2_control if true'),
-
         node_robot_state_publisher,
         node_joint_state_publisher_gui
     ])
