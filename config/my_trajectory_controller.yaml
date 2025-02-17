@@ -55,5 +55,5 @@ one_wheel_trajectory:
       stopped_velocity_tolerance: 0.01
       goal_time: 0.0
       joint1:
-        trajectory: 0.05
-        goal: 0.03
+        trajectory: 2.00
+        goal: 0.00
