@@ -43,7 +43,7 @@
         <hardware>
             <plugin>myactuator_rmd_hardware/MyActuatorRmdHardwareInterface</plugin>
             <param name="ifname">can0</param>
-            <param name="actuator_id">6</param>
+            <param name="actuator_id">7</param>
             <param name="torque_constant">2.023914969</param>
             <param name="velocity_alpha">0.1</param>
             <param name="effort_alpha">0.1</param>
