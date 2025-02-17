@@ -15,12 +15,9 @@ joint_trajectory_controller:
       - left_front_wheel
 
     command_interfaces:
-      - position
-      - velocity
+      - effort
 
     state_interfaces:
-      - position
-      - velocity
       - effort
 
     state_publish_rate: 50.0
