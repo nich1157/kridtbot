@@ -2,25 +2,23 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <ros2_control name="myactuator_controller" type="actuator">
-    <hardware>
-        <plugin>myactuator_rmd_hardware/MyActuatorRmdHardwareInterface</plugin>
-        <param name="ifname">can0</param>
-        <param name="actuator_id">145</param>
-        <param name="torque_constant">2.023914969</param>
-        <!-- Optional: Low-pass filters for velocity and effort (0 < alpha <= 1); defaults to no filter -->
-        <param name="velocity_alpha">0.1</param>
-        <param name="effort_alpha">0.1</param>
-        <!-- Optional: Cycle time of the asynchronous thread; defaults to 1ms (1000Hz) -->
-        <param name="cycle_time">1</param>
-    </hardware>
-    <joint name="left_front_wheel">
-        <command_interface name="position"/>
-        <command_interface name="velocity"/>
-        <command_interface name="effort"/>
-        <state_interface name="position"/>
-        <state_interface name="velocity"/>
-        <state_interface name="effort"/>
-    </joint>
+        <hardware>
+            <plugin>myactuator_rmd_hardware/MyActuatorRmdHardwareInterface</plugin>
+            <param name="ifname">can0</param>
+            <param name="actuator_id">6</param>
+            <param name="torque_constant">2.023914969</param>
+            <param name="velocity_alpha">0.1</param>
+            <param name="effort_alpha">0.1</param>
+            <param name="cycle_time">1</param>
+        </hardware>
+        <joint name="left_front_wheel">
+            <command_interface name="position"/>
+            <command_interface name="velocity"/>
+            <command_interface name="effort"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
     </ros2_control>
     <!-- ROS2 Control plugin for Gazebo-->
     <!--ros2_control name="GazeboSystem" type="system"-->
