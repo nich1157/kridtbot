@@ -62,7 +62,4 @@
             <parameters>$(find kridtbot)/config/my_controllers.yaml</parameters>
         </plugin>   
     </gazebo-->
-    
-
-
 </robot>
