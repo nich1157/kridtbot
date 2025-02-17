@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Lidar Joint-->
+    <joint name="lidar_joint" type="fixed">
+        <parent link="chassis_link"/>
+        <child link="lidar_link"/>
+        <origin xyz="0 0 -0.23" rpy="-1.570796 0 0"/> <!-- CHANGE POSITION -->
+    </joint>
+    
+    <!-- Lidar Link -->
+    <link name="lidar_link">
+        <visual>
+            <geometry>
+                <mesh filename="file:$(find kridtbot)/meshes/mid-360-asm(1).STL" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="file:$(find kridtbot)/meshes/mid-360-asm(1).STL" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- Gazebo tag -->
+    <gazebo reference="lidar_link">
+        <sensor type="gpu_lidar" name="lidar_sensor">
+            <visualize>true</visualize>
+            <pose>0 0 0 0 0 0</pose>
+            <update_rate>10</update_rate>
+            <lidar>
+                <scan>
+                    <horizontal>
+                        <samples>360</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-3.14159265359</min_angle>
+                        <max_angle>3.14159265359</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.3</min>
+                    <max>12</max>
+                </range>
+            </lidar>
+            <topic>scan</topic> <!-- topic to pub -->
+            <gz_frame_id>lidar_link</gz_frame_id>
+
+        </sensor>
+    </gazebo>
+
+        <!-- Update to jazzy-->
+        <!-- change scan to mid-360 specfics-->
+        <!-- Get Gazebo control to work again-->
+        <!-- Download packages such diff_cont can activate-->
+
+</robot> 
