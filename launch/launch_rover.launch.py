@@ -40,13 +40,13 @@ def generate_launch_description():
         parameters=[{'robot_description':robot_description},
                     controller_params],
     )
-    delayed_controller_manager = TimerAction(period=1.0,actions=[controller_manager])
+    delayed_controller_manager = TimerAction(period=3.0,actions=[controller_manager])
     
     # configure, inactive and activate controllers - diff_drive and joint broadcaster
     diff_drive_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["diff_cont"],
+        arguments=["joint_trajectory_controller"],
     )
 
     delayed_diff_drive_spwaner = RegisterEventHandler(
@@ -56,33 +56,33 @@ def generate_launch_description():
         )
     )
 
-    joint_broad_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["joint_broad"],
-    )
+#    joint_broad_spawner = Node(
+#        package="controller_manager",
+#        executable="spawner",
+#        arguments=["joint_broad"],
+#    )
 
-    delayed_joint_broad_spawner = RegisterEventHandler(
-        event_handler=OnProcessStart(
-            target_action=controller_manager,
-            on_start=[joint_broad_spawner]
-        )
-    )
-    # ros2 jazzy update. no use of unstamped 
-    twist_stamper = Node(
-        package='twist_stamper',
-        executable='twist_stamper',
-        parameters=[{'use_sim_time': True}],
-        remappings=[('/cmd_vel_in', 'diff_cont/cmd_vel_unstamped'),
-                    ('/cmd_vel_out','/diff_cont/cmd_vel')]
-    )
+#    delayed_joint_broad_spawner = RegisterEventHandler(
+#        event_handler=OnProcessStart(
+#            target_action=controller_manager,
+#            on_start=[joint_broad_spawner]
+#        )
+#    )
+#    # ros2 jazzy update. no use of unstamped 
+#    twist_stamper = Node(
+#        package='twist_stamper',
+#        executable='twist_stamper',
+#        parameters=[{'use_sim_time': False}],
+#        remappings=[('/cmd_vel_in', 'diff_cont/cmd_vel_unstamped'),
+#                    ('/cmd_vel_out','/diff_cont/cmd_vel')]
+#    )
 
 
     # Launch all
     return LaunchDescription([
         rsp,
         delayed_controller_manager,
-        twist_stamper,
+        #twist_stamper,
         delayed_diff_drive_spwaner,
-        delayed_joint_broad_spawner,
+        #delayed_joint_broad_spawner,
     ])
