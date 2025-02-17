@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     <!-- ROS2 Control plugin for Gazebo-->
-    <ros2_control name="myactuator_controller" type="actuator">
+    <ros2_control name="myactuator_controller_right_front_wheel" type="actuator">
         <hardware>
             <plugin>myactuator_rmd_hardware/MyActuatorRmdHardwareInterface</plugin>
             <param name="ifname">can0</param>
@@ -20,7 +20,7 @@
             <state_interface name="effort"/>
         </joint>
     </ros2_control>
-    <ros2_control name="myactuator_controller" type="actuator">
+    <ros2_control name="myactuator_controller_right_rear_wheel" type="actuator">
         <hardware>
             <plugin>myactuator_rmd_hardware/MyActuatorRmdHardwareInterface</plugin>
             <param name="ifname">can0</param>
@@ -39,7 +39,7 @@
             <state_interface name="effort"/>
         </joint>
     </ros2_control>
-    <ros2_control name="myactuator_controller" type="actuator">
+    <ros2_control name="myactuator_controller_left_front_wheel" type="actuator">
         <hardware>
             <plugin>myactuator_rmd_hardware/MyActuatorRmdHardwareInterface</plugin>
             <param name="ifname">can0</param>
