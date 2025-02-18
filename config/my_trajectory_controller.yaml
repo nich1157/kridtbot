@@ -38,7 +38,7 @@ one_wheel_trajectory:
   ros__parameters:
     joints:
       - left_front_wheel
-      - left_rear_wheel
+      - right_front_wheel
 
     command_interfaces:
       - position
@@ -55,6 +55,9 @@ one_wheel_trajectory:
     constraints:
       stopped_velocity_tolerance: 0.01
       goal_time: 0.0
-      joint1:
-        trajectory: 2.00
-        goal: 0.00
+      left_front_wheel:
+        trajectory: 0.05
+        goal: 0.03
+      right_front_wheel:
+        trajectory: 0.05
+        goal: 0.03

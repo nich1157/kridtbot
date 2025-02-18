@@ -25,13 +25,13 @@
         <hardware>
             <plugin>myactuator_rmd_hardware/MyActuatorRmdHardwareInterface</plugin>
             <param name="ifname">can0</param>
-            <param name="actuator_id">5</param>
+            <param name="actuator_id">6</param>
             <param name="torque_constant">2.023914969</param>
             <param name="velocity_alpha">0.1</param>
             <param name="effort_alpha">0.1</param>
             <param name="cycle_time">1</param>
         </hardware>
-        <joint name="left_rear_wheel">
+        <joint name="right_front_wheel">
             <command_interface name="position"/>
             <command_interface name="velocity"/>
             <command_interface name="effort"/>
