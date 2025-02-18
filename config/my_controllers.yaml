@@ -38,6 +38,9 @@ lin_trajectory:
   ros__parameters:
     joints:
       - left_rear_linear
+      - right_front_linear
+      - right_rear_linear
+      - left_front_linear
 
     command_interfaces:
       - position
