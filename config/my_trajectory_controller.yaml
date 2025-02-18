@@ -38,7 +38,7 @@ one_wheel_trajectory:
   ros__parameters:
     joints:
       - left_front_wheel
-      - right_front_wheel
+      - left_rear_wheel
 
     command_interfaces:
       - position
