@@ -5,9 +5,9 @@
         <hardware>
             <plugin>odrive_ros2_control_plugin/ODriveHardwareInterface</plugin>
             <param name="can">can0</param>
-            <param name="node_id">3</param>
         </hardware>
         <joint name="left_rear_linear">
+            <param name="node_id">3</param>
             <command_interface name="position"/>
             <command_interface name="velocity"/>
             <command_interface name="effort"/>
