@@ -6,9 +6,54 @@ controller_manager:
     diff_cont:
       type: diff_drive_controller/DiffDriveController
     
+    one_wheel_trajectory:
+      type: "joint_trajectory_controller/JointTrajectoryController"
+        
+    lin_trajectory:
+      type: "joint_trajectory_controller/JointTrajectoryController"
 
-    joint_broad:
-      type: joint_state_broadcaster/JointStateBroadcaster
+one_wheel_trajectory:
+  ros__parameters:
+    joints:
+      - right_rear_wheel
+      - right_front_wheel
+
+    command_interfaces:
+      - position
+
+    state_interfaces:
+      - position
+      - velocity
+
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+
+    allow_partial_joints_goal: false
+    open_loop_control: true
+    constraints:
+      stopped_velocity_tolerance: 0.01
+      goal_time: 0.0
+
+lin_trajectory:
+  ros__parameters:
+    joints:
+      - left_rear_linear
+
+    command_interfaces:
+      - position
+
+    state_interfaces:
+      - position
+      - velocity
+
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+
+    allow_partial_joints_goal: false
+    open_loop_control: true
+    constraints:
+      stopped_velocity_tolerance: 0.01
+      goal_time: 0.0
 
 diff_cont:
   ros__parameters:
