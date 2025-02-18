@@ -54,6 +54,3 @@ one_wheel_trajectory:
     constraints:
       stopped_velocity_tolerance: 0.01
       goal_time: 0.0
-      right_rear_wheel:
-        trajectory: 1.00
-        goal: 0.1
