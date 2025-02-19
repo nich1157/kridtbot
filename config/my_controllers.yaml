@@ -12,6 +12,17 @@ controller_manager:
     lin_trajectory:
       type: "joint_trajectory_controller/JointTrajectoryController"
 
+    linear_position_control:
+      type: position_controllers/JointGroupPositionController
+
+linear_position_control:
+  ros__parameters:
+    joints:
+      - left_rear_linear
+      - right_front_linear
+      - right_rear_linear
+      - left_front_linear
+
 one_wheel_trajectory:
   ros__parameters:
     joints:
@@ -48,7 +59,6 @@ lin_trajectory:
     state_interfaces:
       - position
       - velocity
-      - effort
 
     state_publish_rate: 50.0
     action_monitor_rate: 20.0

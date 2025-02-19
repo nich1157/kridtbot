@@ -46,7 +46,7 @@ def generate_launch_description():
     lin_control_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["lin_trajectory"],
+        arguments=["linear_position_control"],
     )
 
     delayed_lin_control_spwaner = RegisterEventHandler(
