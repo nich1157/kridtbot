@@ -71,7 +71,7 @@ def generate_launch_description():
 
     imu_launch = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
-                    get_package_share_directory(package_name),'launch','imu.launch.py'
+                    get_package_share_directory(package_name),'launch','launch_imu.launch.py'
                 )])
     )
 
