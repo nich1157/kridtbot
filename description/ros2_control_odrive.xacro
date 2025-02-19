@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     <!-- ROS2 Control plugin for Gazebo-->
-    <ros2_control name="odrive_controller_left_rear_linear" type="system">
+    <ros2_control name="odrive_controller" type="system">
         <hardware>
             <plugin>odrive_ros2_control_plugin/ODriveHardwareInterface</plugin>
             <param name="can">can0</param>
