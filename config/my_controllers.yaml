@@ -88,7 +88,7 @@ diff_cont:
 
 imu_sensor:
   ros__parameters:
-    sensor_name: "bno055"
+    sensor_name: "bno055/imu"
     frame_id:  "imu_link"
 
 #joint_broad:
