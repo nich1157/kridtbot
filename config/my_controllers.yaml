@@ -17,6 +17,9 @@ controller_manager:
     
     joint_broad:
       type: joint_state_broadcaster/JointStateBroadcaster
+    
+    imu_sensor:
+       type: imu_sensor_broadcaster/ImuSensorBroadcaster
 
 linear_position_control:
   ros__parameters:
@@ -82,6 +85,11 @@ diff_cont:
 
     publish_rate: 50.0
     #use_samped_vel: false
+
+imu_sensor:
+  ros__parameters:
+    sensor_name: "bno055"
+    frame_id:  "imu_link"
 
 #joint_broad:
 #  ros_parameters:
