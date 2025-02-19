@@ -100,10 +100,9 @@ def generate_launch_description():
     # Launch all
     return LaunchDescription([
         rsp,
-        imu_launch,
         delayed_controller_manager,
         delayed_lin_control_spwaner,
         delayed_joint_broad_spawner,
+        imu_launch,
         delayed_imu_broad_spawner,
-
     ])
