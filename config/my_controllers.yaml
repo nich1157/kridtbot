@@ -14,6 +14,9 @@ controller_manager:
 
     linear_position_control:
       type: position_controllers/JointGroupPositionController
+    
+    joint_broad:
+      type: joint_state_broadcaster/JointStateBroadcaster
 
 linear_position_control:
   ros__parameters:
@@ -80,3 +83,5 @@ diff_cont:
     publish_rate: 50.0
     #use_samped_vel: false
 
+joint_broad:
+  ros_parameters:

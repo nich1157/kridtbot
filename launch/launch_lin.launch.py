@@ -56,18 +56,18 @@ def generate_launch_description():
         )
     )
 
-#    joint_broad_spawner = Node(
-#        package="controller_manager",
-#        executable="spawner",
-#        arguments=["joint_broad"],
-#    )
+    joint_broad_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_broad"],
+    )
 
-#    delayed_joint_broad_spawner = RegisterEventHandler(
-#        event_handler=OnProcessStart(
-#            target_action=controller_manager,
-#            on_start=[joint_broad_spawner]
-#        )
-#    )
+    delayed_joint_broad_spawner = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=controller_manager,
+            on_start=[joint_broad_spawner]
+        )
+    )
 #    # ros2 jazzy update. no use of unstamped 
 #    twist_stamper = Node(
 #        package='twist_stamper',
@@ -83,4 +83,5 @@ def generate_launch_description():
         rsp,
         delayed_controller_manager,
         delayed_lin_control_spwaner,
+        delayed_joint_broad_spawner,
     ])
