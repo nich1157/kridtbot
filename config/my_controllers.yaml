@@ -83,5 +83,5 @@ diff_cont:
     publish_rate: 50.0
     #use_samped_vel: false
 
-joint_broad:
-  ros_parameters:
+#joint_broad:
+#  ros_parameters:
