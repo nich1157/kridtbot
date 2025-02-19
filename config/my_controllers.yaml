@@ -34,6 +34,7 @@ one_wheel_trajectory:
     joints:
       - left_front_wheel
       - right_front_wheel
+      - right_rear_wheel
 
     command_interfaces:
       - position
