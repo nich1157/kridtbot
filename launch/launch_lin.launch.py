@@ -68,6 +68,25 @@ def generate_launch_description():
             on_start=[joint_broad_spawner]
         )
     )
+
+    imu_launch = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([os.path.join(
+                    get_package_share_directory(package_name),'launch','imu.launch.py'
+                )])
+    )
+
+    imu_broad_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["imu_sensor"],
+    )
+
+    delayed_imu_broad_spawner = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=controller_manager,
+            on_start=[imu_broad_spawner]
+        )
+    )
 #    # ros2 jazzy update. no use of unstamped 
 #    twist_stamper = Node(
 #        package='twist_stamper',
@@ -81,7 +100,10 @@ def generate_launch_description():
     # Launch all
     return LaunchDescription([
         rsp,
+        imu_launch,
         delayed_controller_manager,
         delayed_lin_control_spwaner,
         delayed_joint_broad_spawner,
+        delayed_imu_broad_spawner,
+
     ])
