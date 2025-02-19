@@ -29,6 +29,12 @@ def generate_launch_description():
                 )]), launch_arguments={'use_sim_time': 'false', 'use_ros2_control':'true'}.items()
     )
 
+    imu_launch = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([os.path.join(
+                    get_package_share_directory(package_name),'launch','launch_imu.launch.py'
+                )])
+    )
+
     robot_description = Command([
         'ros2 param get --hide-type /robot_state_publisher robot_description'
     ])
@@ -67,12 +73,6 @@ def generate_launch_description():
             target_action=controller_manager,
             on_start=[joint_broad_spawner]
         )
-    )
-
-    imu_launch = IncludeLaunchDescription(
-                PythonLaunchDescriptionSource([os.path.join(
-                    get_package_share_directory(package_name),'launch','launch_imu.launch.py'
-                )])
     )
 
     imu_broad_spawner = Node(
