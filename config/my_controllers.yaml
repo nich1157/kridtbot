@@ -48,6 +48,7 @@ lin_trajectory:
     state_interfaces:
       - position
       - velocity
+      - effort
 
     state_publish_rate: 50.0
     action_monitor_rate: 20.0
