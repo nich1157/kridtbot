@@ -1,3 +1,8 @@
+
+# Neewd fixing:
+# - Make this work standalone
+# - Try to implement with the other liner acutator script
+
 import os
 
 from ament_index_python.packages import get_package_share_directory
