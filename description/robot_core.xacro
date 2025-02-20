@@ -9,8 +9,8 @@
   <color rgba="${64/255} ${64/255} ${64/255} 1" /> 
 </material>
 
-<material name="blue">
-  <color rgba="${0/255} ${0/255} ${255/255} 1" />
+<material name="blue opaque">
+  <color rgba="${0/255} ${0/255} ${255/255} 0.4" />
 </material>
 
 <material name="mesh_color">
@@ -33,7 +33,7 @@
   </link>
 
   <joint name="base_to_chassis" type="fixed">
-    <origin xyz="0 0 0" rpy="-3.1415 0 0"/>
+    <origin xyz="0 0 0" rpy="-3.1415 0 1.57079632679"/>
     <parent link="base_link"/>
     <child link="chassis_link"/>
   </joint>
@@ -66,8 +66,8 @@
 
   <gazebo reference="chassis_link">
     <material>Gazebo/Orange</material>
-    <mu1 value = "0.3"/>
-    <mu2 value = "0.3"/>
+    <mu1 value = "1"/>
+    <mu2 value = "1"/>
   </gazebo>
 
     <!-- _____________BASE TO CHASSIS JOINT____________-->
@@ -107,7 +107,7 @@
   <gazebo reference="diff_link">
     <material>Gazebo/Orange</material>
   </gazebo>
-  
+
   <link name="imu_link">
 
     <visual>
@@ -142,15 +142,15 @@
   <gazebo reference="imu_link">
     <material>Gazebo/Black</material>
   </gazebo>
+
   <!-- _____________DIFF TO LEFT DIFF JOINT____________-->
   <joint name="left_diff" type="fixed"> <!--diff_to_left_diff-->
     <origin xyz="0 0 -0.28" rpy="-3.1416 0 -3.1416"/>
     <axis xyz="0 0 1"/>
-    <limit effort="1000" lower="-1.5708" upper="1.5708" velocity="10"/>
+    <!--<limit effort="1000" lower="-1.5708" upper="1.5708" velocity="10"/> -->
     <parent link="diff_link"/>
     <child link="left_diff_link"/>
   </joint>
-
 
   <!-- _____________LEFT DIFF LINK____________-->
   <link name="left_diff_link">
@@ -181,13 +181,13 @@
 
   <gazebo reference="left_diff_link">
     <material>Gazebo/Black</material>
-    <mu1 value = "0.3"/>
-    <mu2 value = "0.3"/>
+    <mu1 value = "1"/>
+    <mu2 value = "1"/>
   </gazebo>
 
   <!-- _____________LEFT DIFF TO LEFT REAR LIN JOINT____________-->
-  <joint name="left_rear_linear" type="prismatic"> <!-- left_diff_to_left_rear_lin -->
-    <limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/>
+  <joint name="left_rear_linear" type="fixed"> <!-- left_diff_to_left_rear_lin -->
+    <!--<limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/> -->
     <origin xyz="-0.216 -0.0010724 0" rpy="-1.5708 0 0.0049647"/>
     <axis xyz="0 0 1"/>
     <parent link="left_diff_link"/>
@@ -230,6 +230,7 @@
     <axis xyz="0 0 1"/>
     <parent link="left_rear_lin_link"/>
     <child link="left_rear_rev_link"/>
+    <dynamics damping="0.7" friction="1"/>
   </joint>
 
   <!-- _____________LEFT REAR REV LINK____________-->
@@ -249,6 +250,20 @@
         <cylinder radius="0.0865" length="0.05234"/>
       </geometry>
       <material name="mesh_color"/>
+      <!--<surface>
+        <friction>
+          <ode>
+            <mu>2.0</mu>
+            <mu2>2.0</mu2>
+          </ode>
+        </friction>
+        <contact>
+          <ode>
+            <soft_cfm>0.0</soft_cfm>
+            <soft_erp>0.2</soft_erp>
+          </ode>
+        </contact>
+      </surface> -->
     </collision>
 
     <inertial>
@@ -261,11 +276,15 @@
 
   <gazebo reference="left_rear_rev_link">
     <material>Gazebo/Orange</material>
+    <mu1 value = "3"/>
+    <mu2 value = "3"/>
+    <kp>1000000.0</kp>  <!-- Contact stiffness -->
+    <kd>1.0</kd>  
   </gazebo>
 
     <!-- _____________LEFT DIFF TO LEFT FRONT LIN JOINT____________-->
-  <joint name="left_front_linear" type="prismatic"> <!-- left_diff_to_left_front_lin-->
-    <limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/>
+  <joint name="left_front_linear" type="fixed"> <!-- left_diff_to_left_front_lin-->
+    <!--<limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/> -->
     <origin xyz="0.216 0.0010724 0" rpy="-1.5708 0 0.0049647"/>
     <axis xyz="0 0 1"/>
     <parent link="left_diff_link"/>
@@ -308,6 +327,7 @@
     <axis xyz="0 0 1"/>
     <parent link="left_front_lin_link"/>
     <child link="left_front_rev_link"/>
+    <dynamics damping="0.7" friction="1"/>
   </joint>
 
   <!-- _____________LEFT FRONT REV LINK____________-->
@@ -327,6 +347,20 @@
         <cylinder radius="0.0865" length="0.05234"/>
       </geometry>
       <material name="mesh_color"/>
+      <!--<surface>
+        <friction>
+          <ode>
+            <mu>2.0</mu>
+            <mu2>2.0</mu2>
+          </ode>
+        </friction>
+        <contact>
+          <ode>
+            <soft_cfm>0.0</soft_cfm>
+            <soft_erp>0.2</soft_erp>
+          </ode>
+        </contact>
+      </surface> -->
     </collision>
   
     <inertial>
@@ -334,20 +368,24 @@
       <inertia ixx="5844491.97e-9" ixy="-376.28e-9" ixz="-3671.08e-9" iyy="5842839.83e-9" iyz="-796.72e-9" izz="3646247.90e-9"/>
     </inertial>
 
-    <gazebo reference="left_front_rev_link">
-      <material>Gazebo/Orange</material>
-      <mu1 value = "0.5"/>
-      <mu2 value = "0.5"/>
-    </gazebo>
-
-
   </link>
+  <gazebo reference="left_front_rev_link">
+    <material>Gazebo/Black</material>
+    <mu1 value = "3"/>
+    <mu2 value = "3"/>
+    <slip1 value = "1"/>
+    <slip2 value = "1"/>
+    <kp>1000000.0</kp>  <!-- Contact stiffness -->
+    <kd>1.0</kd>  
+  </gazebo>
+
+
 
     <!-- _____________DIFF TO RIGHT DIFF JOINT____________-->
     <joint name="right_diff" type="fixed"> <!-- diff_to_right_diff -->
       <origin xyz="0 0 0.28" rpy="0 0 0"/>
       <axis xyz="0 0 1"/>
-      <limit effort="1000" lower="-1.5708" upper="1.5708" velocity="10"/>
+      <!--<limit effort="1000" lower="-1.5708" upper="1.5708" velocity="10"/> -->
       <parent link="diff_link"/>
       <child link="right_diff_link"/>
       <mimic joint="left_diff" multiplier="1"/>
@@ -382,14 +420,14 @@
 
     <gazebo reference="right_diff_link">
       <material>Gazebo/Black</material>
-      <mu1 value = "0.3"/>
-      <mu2 value = "0.3"/>
+      <mu1 value = "1"/>
+      <mu2 value = "1"/>
     </gazebo>
   
     <!-- _____________RIGHT DIFF TO RIGHT REAR LIN JOINT____________-->
-    <joint name="right_rear_linear" type="prismatic"> <!-- right_diff_to_right_rear_lin -->
-      <limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/>
-      <origin xyz="-0.216 -0.0010724 0" rpy="-1.5708 0 0.0049647"/>
+    <joint name="right_rear_linear" type="fixed"> <!-- right_diff_to_right_rear_lin -->
+      <!--<limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/> -->
+      <origin xyz="0.216 -0.0010724 0" rpy="-1.5708 0 0.0049647"/>
       <axis xyz="0 0 1"/>
       <parent link="right_diff_link"/>
       <child link="right_rear_lin_link"/>
@@ -431,6 +469,7 @@
       <axis xyz="0 0 1"/>
       <parent link="right_rear_lin_link"/>
       <child link="right_rear_rev_link"/>
+      <dynamics damping="0.7" friction="1"/>
     </joint>
   
     <!-- _____________RIGHT REAR REV LINK____________-->
@@ -450,6 +489,20 @@
           <cylinder radius="0.0865" length="0.05234"/>
         </geometry>
         <material name="mesh_color"/>
+        <!--<surface>
+          <friction>
+            <ode>
+              <mu>2.0</mu>
+              <mu2>2.0</mu2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <soft_cfm>0.0</soft_cfm>
+              <soft_erp>0.2</soft_erp>
+            </ode>
+          </contact>
+      </surface> -->
       </collision>
     
     <inertial>
@@ -461,12 +514,18 @@
 
     <gazebo reference="right_rear_rev_link">
       <material>Gazebo/Orange</material>
+      <mu1 value = "3"/>
+      <mu2 value = "3"/>
+      <slip1 value = "1"/>
+      <slip2 value = "1"/>
+      <kp>1000000.0</kp>  <!-- Contact stiffness -->
+      <kd>1.0</kd>  
     </gazebo>
   
       <!-- _____________RIGHT DIFF TO RIGHT FRONT LIN JOINT____________-->
-    <joint name="right_front_linear" type="prismatic"> <!-- right_diff_to_right_front_lin -->
-      <limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/>
-      <origin xyz="0.216 0.0010724 0" rpy="-1.5708 0 0.0049647"/>
+    <joint name="right_front_linear" type="fixed"> <!-- right_diff_to_right_front_lin -->
+      <!--<limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/> -->
+      <origin xyz="-0.216 0.0010724 0" rpy="-1.5708 0 0.0049647"/>
       <axis xyz="0 0 1"/>
       <parent link="right_diff_link"/>
       <child link="right_front_lin_link"/>
@@ -508,6 +567,7 @@
       <axis xyz="0 0 1"/>
       <parent link="right_front_lin_link"/>
       <child link="right_front_rev_link"/>
+      <dynamics damping="0.7" friction="1"/>
     </joint>
   
     <!-- _____________RIGHT FRONT REV LINK____________-->
@@ -527,6 +587,20 @@
           <cylinder radius="0.0865" length="0.05234"/>
         </geometry>
         <material name="mesh_color"/>
+        <!--<surface>
+          <friction>
+            <ode>
+              <mu>2.0</mu>
+              <mu2>2.0</mu2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <soft_cfm>0.0</soft_cfm>
+              <soft_erp>0.2</soft_erp>
+            </ode>
+          </contact>
+      </surface> -->
       </collision>
 
     <inertial>
@@ -537,8 +611,12 @@
 
     <gazebo reference="right_front_rev_link">
       <material>Gazebo/Orange</material>
-      <mu1 value = "0.5"/>
-      <mu2 value = "0.5"/>
+      <mu1 value = "3"/>
+      <mu2 value = "3"/>
+      <slip1 value = "1"/>
+      <slip2 value = "1"/>
+      <kp>1000000.0</kp>  <!-- Contact stiffness -->
+      <kd>1.0</kd>  
     </gazebo>
 
 </robot>

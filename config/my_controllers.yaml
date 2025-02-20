@@ -80,13 +80,17 @@ lin_trajectory:
 diff_cont:
   ros__parameters:
     left_wheel_names: ["left_front_wheel", "left_rear_wheel"]
-    right_wheel_names: ["right_front_wheel", "right_rear_wheel"]
+    right_wheel_names: ["right_front_wheel", "right_rear_wheel"] # rear and front are swapped
 
-    wheel_separation: 0.068185
-    wheel_radius: 0.0815
+    wheel_separation: .6832 # correct separation gives weird behavior
+    wheel_radius: 0.09
+    wheels_per_side: 2
+    left_wheel_radius_multiplier: 1.0
+    right_wheel_radius_multiplier: -1.0
 
     publish_rate: 50.0
     #use_samped_vel: false
+
 
 imu_sensor:
   ros__parameters:

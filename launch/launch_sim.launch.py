@@ -47,7 +47,7 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')]),
-                    launch_arguments={'gz_args': ['-r -v4 ', world], 'on_exit_shutdown': 'true'}.items()
+                    launch_arguments={'gz_args': ['-r -v4 --render-engine ogre2 ', world], 'on_exit_shutdown': 'true'}.items()
              )
 
     # Run the spawner node from the ros_gz_sim package. The entity name doesn't really matter if you only have a single robot.
@@ -84,6 +84,12 @@ def generate_launch_description():
         ]
     )
 
+    joystick = IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([os.path.join(
+                get_package_share_directory(package_name),'launch','joystick.launch.py'
+            )]), launch_arguments={'use_sim_time': 'true'}.items()
+    )
+
     # ros2 jazzy update. no use of unstamped 
     twist_stamper = Node(
         package='twist_stamper',
@@ -93,17 +99,27 @@ def generate_launch_description():
                     ('/cmd_vel_out','/diff_cont/cmd_vel')]
     )
 
-
+    # enable the option for camera/image_raw/compressed as image topic
+    # see by choose /out/compressed in ros2 run rqt_image_view rqt_image_view
+    compressed_image = Node(
+            package="image_transport",
+            executable="republish",
+            arguments=["raw", "in:=/camera/image_raw", "compressed", "out:=/camera/image_raw/compressed"],
+            output="screen",
+        )
+    
     # Launch all
     return LaunchDescription([
         rsp,
         world_arg,
         gazebo,
         spawn_entity,
+        joystick,
         twist_stamper,
         diff_drive_spawner,
         joint_broad_spawner,
         ros_gz_bridge
+        #compressed_image
         #diff_drive_spawner,
         #joint_broad_spawner
     ])
