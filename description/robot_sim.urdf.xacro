@@ -5,7 +5,7 @@
     <xacro:arg name="use_ros2_control" default="true"/>
 
     <!-- URDF Robot Description-->
-    <xacro:include filename="robot_core.xacro" />
+    <xacro:include filename="robot_core_sim.xacro" />
 
     <!-- Sensors -->
     <xacro:include filename="lidar.xacro" />
