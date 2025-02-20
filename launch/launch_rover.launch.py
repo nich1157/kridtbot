@@ -29,19 +29,6 @@ def generate_launch_description():
                 )]), launch_arguments={'use_sim_time': 'false', 'use_ros2_control':'true'}.items()
     )
 
-    lin_control_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["linear_position_control"],
-    )
-
-    delayed_lin_control_spwaner = RegisterEventHandler(
-        event_handler=OnProcessStart(
-            target_action=controller_manager,
-            on_start=[lin_control_spawner]
-        )
-    )
-
     robot_description = Command([
         'ros2 param get --hide-type /robot_state_publisher robot_description'
     ])
@@ -97,6 +84,18 @@ def generate_launch_description():
                     ('/cmd_vel_out','/diff_cont/cmd_vel')]
     )
 
+    lin_control_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["linear_position_control"],
+    )
+
+    delayed_lin_control_spwaner = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=controller_manager,
+            on_start=[lin_control_spawner]
+        )
+    )
 
 
     # Launch all
