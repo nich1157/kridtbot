@@ -4,7 +4,7 @@
     <ros2_control name="odrive_controller" type="system">
         <hardware>
             <plugin>odrive_ros2_control_plugin/ODriveHardwareInterface</plugin>
-            <param name="can">can0</param>
+            <param name="can">can4</param>
         </hardware>
         <joint name="right_rear_linear">
             <param name="node_id">3</param>
