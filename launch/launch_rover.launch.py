@@ -40,7 +40,7 @@ def generate_launch_description():
         parameters=[{'robot_description':robot_description},
                     controller_params],
     )
-    delayed_controller_manager = TimerAction(period=3.0,actions=[controller_manager])
+    delayed_controller_manager = TimerAction(period=1.0,actions=[controller_manager])
     
     # configure, inactive and activate controllers - diff_drive and joint broadcaster
     diff_drive_spawner = Node(
@@ -83,22 +83,15 @@ def generate_launch_description():
         remappings=[('/cmd_vel_in', 'diff_cont/cmd_vel_unstamped'),
                     ('/cmd_vel_out','/diff_cont/cmd_vel')]
     )
-#    # ros2 jazzy update. no use of unstamped 
-#    twist_stamper = Node(
-#        package='twist_stamper',
-#        executable='twist_stamper',
-#        parameters=[{'use_sim_time': False}],
-#        remappings=[('/cmd_vel_in', 'diff_cont/cmd_vel_unstamped'),
-#                    ('/cmd_vel_out','/diff_cont/cmd_vel')]
-#    )
+
 
 
     # Launch all
     return LaunchDescription([
         rsp,
         delayed_controller_manager,
-        twist_stamper,
-        joystick,
+        #twist_stamper,
+        #joystick,
         delayed_diff_drive_spwaner,
         delayed_joint_broad_spawner,
     ])
