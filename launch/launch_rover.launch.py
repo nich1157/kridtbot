@@ -90,8 +90,8 @@ def generate_launch_description():
     return LaunchDescription([
         rsp,
         delayed_controller_manager,
-        #twist_stamper,
-        #joystick,
+        twist_stamper,
+        joystick,
         delayed_diff_drive_spwaner,
         delayed_joint_broad_spawner,
     ])

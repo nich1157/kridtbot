@@ -32,15 +32,6 @@ def generate_launch_description():
         parameters=[params_robot_state_publisher]
     )
 
-    params_joint_state_publisher = {'robot_description': robot_description_config}
-    node_joint_state_publisher_gui = Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        output='screen',
-        parameters=[params_joint_state_publisher]
-    )
-
-
     # Launch!
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -52,5 +43,4 @@ def generate_launch_description():
             default_value='true',
             description='uses ros2_control if true'),
         node_robot_state_publisher,
-        #node_joint_state_publisher_gui
     ])
