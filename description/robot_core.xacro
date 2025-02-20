@@ -187,7 +187,7 @@
 
   <!-- _____________LEFT DIFF TO LEFT REAR LIN JOINT____________-->
   <joint name="left_rear_linear" type="prismatic"> <!-- left_diff_to_left_rear_lin -->
-    <!--<limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/> -->
+    <limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/>
     <origin xyz="-0.216 -0.0010724 0" rpy="-1.5708 0 0.0049647"/>
     <axis xyz="0 0 1"/>
     <parent link="left_diff_link"/>
@@ -284,7 +284,7 @@
 
     <!-- _____________LEFT DIFF TO LEFT FRONT LIN JOINT____________-->
   <joint name="left_front_linear" type="prismatic"> <!-- left_diff_to_left_front_lin-->
-    <!--<limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/> -->
+    <limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/> 
     <origin xyz="0.216 0.0010724 0" rpy="-1.5708 0 0.0049647"/>
     <axis xyz="0 0 1"/>
     <parent link="left_diff_link"/>
@@ -426,7 +426,7 @@
   
     <!-- _____________RIGHT DIFF TO RIGHT REAR LIN JOINT____________-->
     <joint name="right_rear_linear" type="prismatic"> <!-- right_diff_to_right_rear_lin -->
-      <!--<limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/> -->
+      <limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/>
       <origin xyz="0.216 -0.0010724 0" rpy="-1.5708 0 0.0049647"/>
       <axis xyz="0 0 1"/>
       <parent link="right_diff_link"/>
@@ -524,7 +524,7 @@
   
       <!-- _____________RIGHT DIFF TO RIGHT FRONT LIN JOINT____________-->
     <joint name="right_front_linear" type="prismatic"> <!-- right_diff_to_right_front_lin -->
-      <!--<limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/> -->
+      <limit effort="1000.0" lower="0" upper="0.13" velocity="0.5"/>
       <origin xyz="-0.216 0.0010724 0" rpy="-1.5708 0 0.0049647"/>
       <axis xyz="0 0 1"/>
       <parent link="right_diff_link"/>
