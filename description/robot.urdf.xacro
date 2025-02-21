@@ -10,10 +10,10 @@
     <!-- Control -->
     <xacro:if value="$(arg use_ros2_control)">
         <xacro:include filename="ros2_control_myactuator.xacro" />
-        <xacro:include filename="ros2_control_odrive.xacro" />
     </xacro:if>
     <xacro:unless value="$(arg use_ros2_control)">
         <xacro:include filename="gazebo_control.xacro" />
+        <xacro:include filename="ros2_control_odrive.xacro" />
     </xacro:unless> 
 
 </robot> 
