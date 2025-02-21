@@ -104,7 +104,7 @@ def generate_launch_description():
         delayed_controller_manager,
         twist_stamper,
         joystick,
-        #delayed_lin_control_spwaner,
+        delayed_lin_control_spwaner,
         delayed_diff_drive_spwaner,
         delayed_joint_broad_spawner,
     ])
