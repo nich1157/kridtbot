@@ -1,4 +1,4 @@
-#include "ros2_control_demo_example_5/external_rrbot_force_torque_sensor.hpp"
+#include "kridtbot/imu_sensor.hpp"
 
 #include <chrono>
 #include <cmath>
@@ -11,7 +11,7 @@
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/rclcpp.hpp"
 
-namespace ros2_control_demo_example_5
+namespace kridtbot
 {
 hardware_interface::CallbackReturn ExternalRRBotForceTorqueSensorHardware::on_init(
   const hardware_interface::HardwareInfo & info)
@@ -72,19 +72,16 @@ hardware_interface::return_type ExternalRRBotForceTorqueSensorHardware::read(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
   // BEGIN: This part here is for exemplary purposes - Please do not copy to your production code
-  std::stringstream ss;
-  ss << "Reading states from sensors:" << std::fixed << std::setprecision(2);
-  size_t i = 0;
-  for (const auto & [name, descr] : sensor_state_interfaces_)
-  {
-    // Simulate RRBot's sensor data
-    unsigned int seed = time(NULL) + i++;
-    set_state(
-      name, static_cast<float>(rand_r(&seed)) / (static_cast<float>(RAND_MAX / hw_sensor_change_)));
-
-    ss << std::endl << "\t" << get_state(name) << " for sensor '" << name << "'";
-  }
-  RCLCPP_INFO_THROTTLE(get_logger(), *get_clock(), 500, "%s", ss.str().c_str());
+  imu_sensor_state_[0] = imu_msg->orientation.x;
+  imu_sensor_state_[1] = imu_msg->orientation.y;
+  imu_sensor_state_[2] = imu_msg->orientation.z;
+  imu_sensor_state_[3] = imu_msg->orientation.w;
+  imu_sensor_state_[4] = imu_msg->angular_velocity.x;
+  imu_sensor_state_[5] = imu_msg->angular_velocity.y;
+  imu_sensor_state_[6] = imu_msg->angular_velocity.z;
+  imu_sensor_state_[7] = imu_msg->linear_acceleration.x;
+  imu_sensor_state_[8] = imu_msg->linear_acceleration.y;
+  imu_sensor_state_[9] = imu_msg->linear_acceleration.z;
   // END: This part here is for exemplary purposes - Please do not copy to your production code
 
   return hardware_interface::return_type::OK;
@@ -95,5 +92,5 @@ hardware_interface::return_type ExternalRRBotForceTorqueSensorHardware::read(
 #include "pluginlib/class_list_macros.hpp"
 
 PLUGINLIB_EXPORT_CLASS(
-  ros2_control_demo_example_5::ExternalRRBotForceTorqueSensorHardware,
+  kridtbot::BNO055ImuHardwareInterface,
   hardware_interface::SensorInterface)

@@ -25,7 +25,7 @@
 #include "hardware_interface/types/hardware_interface_return_values.hpp"
 #include "rclcpp/macros.hpp"
 
-namespace ros2_control_demo_example_5
+namespace kridtbot
 {
 class ExternalRRBotForceTorqueSensorHardware : public hardware_interface::SensorInterface
 {
@@ -51,6 +51,6 @@ private:
   double hw_sensor_change_;
 };
 
-}  // namespace ros2_control_demo_example_5
+}  // namespace kridtbot
 
-#endif  // ROS2_CONTROL_DEMO_EXAMPLE_5__EXTERNAL_RRBOT_FORCE_TORQUE_SENSOR_HPP_
+#endif  // BNO055_IMU_SENSOR_INTERFACE
