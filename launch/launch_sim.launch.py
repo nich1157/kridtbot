@@ -68,7 +68,6 @@ def generate_launch_description():
             f'config_file:={bridge_params}',
         ]
     )
-
     #### Launch 3: configure, inactive and activate controllers
     # Differential drive controller
     diff_drive_spawner = Node(
@@ -89,6 +88,14 @@ def generate_launch_description():
         package="controller_manager",
         executable="spawner",
         arguments=["linear_position_control"],
+    )
+
+    # IMU controller
+    imu_broad_spawner = Node(
+        package='controller_manager',
+        executable='spawner',
+        arguments=["imu_broad"],
+        output='screen'
     )
 
     #### Launch 4: Miscanellous
@@ -116,6 +123,20 @@ def generate_launch_description():
             output="screen",
         )
     
+    # Foxglove WebSocket port
+    port_arg = DeclareLaunchArgument(
+        'port',
+        default_value='8765',
+        description='Port number for Foxglove Bridge'
+    )
+    foxglove_bridge = Node(
+        package='foxglove_bridge',
+        executable='foxglove_bridge',
+        name='foxglove_bridge',
+        parameters=[{"port": LaunchConfiguration('port')}],
+        output='screen'
+    )
+    
     # Launch all
     return LaunchDescription([
         rsp,
@@ -126,9 +147,9 @@ def generate_launch_description():
         twist_stamper,
         diff_drive_spawner,
         joint_broad_spawner,
+        imu_broad_spawner,
         ros_gz_bridge,
-        lin_control_spawner
-        #compressed_image
-        #diff_drive_spawner,
-        #joint_broad_spawner
+        lin_control_spawner,
+        #compressed_image,
+        #foxglove_bridge
     ])

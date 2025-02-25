@@ -25,19 +25,19 @@ public:
         joystick_sub_ = this->create_subscription<sensor_msgs::msg::Joy>(
             "/joy", 10, std::bind(&LinearPositionPub::joy_callback, this, std::placeholders::_1));
 
-        RCLCPP_INFO(this->get_logger(), "LinearPositionPub initialized with min_value: %.2f, max_value: %.2f, axis_index: %d",
-                    min_value_, max_value_, axis_index_);
+        // Print out information
+        // RCLCPP_INFO(this->get_logger(), "LinearPositionPub initialized with min_value: %.2f, max_value: %.2f, axis_index: %d", min_value_, max_value_, axis_index_);
     }
 
 private:
     void joy_callback(const sensor_msgs::msg::Joy::SharedPtr msg) {
-        if (msg->axes.size() > axis_index_) {
+        if (msg->axes.size() > static_cast<std::size_t>(axis_index_))  {
             double joystick_value = msg->axes[axis_index_];
 
-            // Map joystick input (-1 to 1) into (min_value to max_value)
+            // map joystick input (-1 to 1) into (min_value to max_value)
             double scaled_value = ((joystick_value + 1) / 2) * (max_value_ - min_value_) + min_value_;
 
-            // Publish the values
+            // publish the values
             auto message = std_msgs::msg::Float64MultiArray();
             message.data = {scaled_value, scaled_value, scaled_value, scaled_value};
             publisher_->publish(message);

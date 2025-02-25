@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- ROS2 Control plugin for Gazebo-->
+    <ros2_control name="GazeboSystemIMU" type="sensor">
+
+        <!-- Hardware interface for GZ-->
+        <hardware>
+            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+        </hardware>
+
+        <!-- All continous joints-->
+        <sensor name="bno055">
+            <param name="frame_id">imu_link</param>
+        </sensor>
+
+    </ros2_control>
+
+        <!-- GZ plugin -->
+    <gazebo>
+          <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
+            <parameters>$(find kridtbot)/config/my_controllers.yaml</parameters>
+        </plugin>   
+    </gazebo>
+    
+</robot>
