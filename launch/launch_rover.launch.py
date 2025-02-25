@@ -28,7 +28,10 @@ def generate_launch_description():
                     get_package_share_directory(package_name),'launch','rsp.launch.py'
                 )]), launch_arguments={'use_sim_time': 'false', 'use_ros2_control':'true'}.items()
     )
-
+    imu_launch =Node(
+        package = 'imu_bno055',
+        executable = 'bno055_i2c_node'
+    )
     robot_description = Command([
         'ros2 param get --hide-type /robot_state_publisher robot_description'
     ])
@@ -97,6 +100,20 @@ def generate_launch_description():
         )
     )
 
+    imu_control_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["imu_sensor_broadcaster"],
+    )
+
+    delayed_imu_control_spwaner = RegisterEventHandler(
+        event_handler=OnProcessStart(
+            target_action=controller_manager,
+            on_start=[imu_control_spawner]
+        )
+    )
+
+
 
     # Launch all
     return LaunchDescription([
@@ -107,4 +124,5 @@ def generate_launch_description():
         delayed_lin_control_spwaner,
         delayed_diff_drive_spwaner,
         delayed_joint_broad_spawner,
+        delayed_imu_control_spwaner,
     ])
