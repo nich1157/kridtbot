@@ -57,22 +57,7 @@ def generate_launch_description():
                                    '-z', '0.3'],
                         output='screen')
     
-
-    # configure, inactive and activate controllers - diff_drive and joint broadcaster
-    diff_drive_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["diff_cont"],
-    )
-
-    joint_broad_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["joint_broad"],
-    )
-
-
-    # tell Gz about bridge between gz and ros2 topics
+    # GZ and ros2 topic bridge
     bridge_params = os.path.join(get_package_share_directory(package_name),'config','gz_bridge.yaml')
     ros_gz_bridge = Node(
         package="ros_gz_bridge",
@@ -84,6 +69,30 @@ def generate_launch_description():
         ]
     )
 
+    #### Launch 3: configure, inactive and activate controllers
+    # Differential drive controller
+    diff_drive_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["diff_cont"],
+    )
+
+    # Joint state broadcaster controller
+    joint_broad_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_broad"],
+    )
+
+    # Linear position controller
+    lin_control_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["linear_position_control"],
+    )
+
+    #### Launch 4: Miscanellous
+    # Joystick
     joystick = IncludeLaunchDescription(
             PythonLaunchDescriptionSource([os.path.join(
                 get_package_share_directory(package_name),'launch','joystick.launch.py'
@@ -99,9 +108,8 @@ def generate_launch_description():
                     ('/cmd_vel_out','/diff_cont/cmd_vel')]
     )
 
-    # enable the option for camera/image_raw/compressed as image topic
-    # see by choose /out/compressed in ros2 run rqt_image_view rqt_image_view
-    compressed_image = Node(
+    # compressed imager
+    compressed_image = Node(   # see by choose /out/compressed in ros2 run rqt_image_view rqt_image_view
             package="image_transport",
             executable="republish",
             arguments=["raw", "in:=/camera/image_raw", "compressed", "out:=/camera/image_raw/compressed"],
@@ -118,7 +126,8 @@ def generate_launch_description():
         twist_stamper,
         diff_drive_spawner,
         joint_broad_spawner,
-        ros_gz_bridge
+        ros_gz_bridge,
+        lin_control_spawner
         #compressed_image
         #diff_drive_spawner,
         #joint_broad_spawner

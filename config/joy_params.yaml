@@ -25,5 +25,12 @@ teleop_node:
 
     require_enable_button: false
 
+linear_position_pub:
+  ros__parameters:
+    min_value: 0.01
+    max_value: 0.13
+    axis_index: 4
+
+
     
     
